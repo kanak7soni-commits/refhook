@@ -182,9 +182,10 @@
               <h2>🔗 ${ref}</h2>
               <div class="meta">${creds.length} accounts • ${s.batches || 0} batches</div>
             </div>
-            <div style="display:flex;gap:8px">
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
               <button class="btn btn-outline" onclick="copyRef('${ref}')">📋 Copy</button>
-              <button class="btn btn-outline" onclick="downloadRef('${ref}')">💾 Download</button>
+              <button class="btn btn-outline" onclick="downloadRef('${ref}')">💾 Download .txt</button>
+              <button class="btn" onclick="exportJson('${ref}')">📦 Export creds.json</button>
               <button class="btn btn-red btn-sm" onclick="deleteRef('${ref}')">🗑 Delete All</button>
             </div>
           </div>
@@ -245,6 +246,15 @@
       const creds = data[ref]?.creds || [];
       navigator.clipboard.writeText(creds.map(c => c.u + ':' + c.p).join('\n'));
       toast('Copied ' + creds.length + ' accounts!');
+    }
+
+    function exportJson(ref) {
+      const creds = data[ref]?.creds || [];
+      const json = JSON.stringify(creds.map(c => [c.u, c.p]), null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+      a.download = 'creds.json'; a.click();
+      toast('Exported ' + creds.length + ' accounts as creds.json');
     }
 
     function downloadRef(ref) {
