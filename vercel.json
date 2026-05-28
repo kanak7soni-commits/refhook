@@ -3,9 +3,5 @@
     "api/*.js": {
       "runtime": "@vercel/node@3.0.0"
     }
-  },
-  "buildCommand": "",
-  "engines": {
-    "node": "18.x"
   }
 }
