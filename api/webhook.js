@@ -1,10 +1,9 @@
 // In-memory store (persists while Vercel keeps function warm)
-// Each deployment gets fresh store
 const store = {};
 
 export default function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
@@ -33,6 +32,50 @@ export default function handler(req, res) {
       store[r].lastUpdate = ts;
 
       return res.json({ ok: true, added, total: store[r].creds.length });
+    } catch (e) {
+      return res.status(500).json({ error: e.message });
+    }
+  }
+
+  // DELETE - remove specific account or entire ref
+  if (req.method === 'DELETE') {
+    try {
+      const { ref, username, deleteAll } = req.body || {};
+
+      // Delete entire ref group
+      if (ref && deleteAll) {
+        if (store[ref]) {
+          const count = store[ref].creds.length;
+          delete store[ref];
+          return res.json({ ok: true, deleted: count, message: `Deleted all creds for ref=${ref}` });
+        }
+        return res.json({ ok: false, message: 'Ref not found' });
+      }
+
+      // Delete specific username from a ref
+      if (ref && username) {
+        if (store[ref]) {
+          const before = store[ref].creds.length;
+          store[ref].creds = store[ref].creds.filter(c => c.u !== username);
+          const removed = before - store[ref].creds.length;
+          store[ref].total = store[ref].creds.length;
+          return res.json({ ok: true, deleted: removed, remaining: store[ref].creds.length });
+        }
+        return res.json({ ok: false, message: 'Ref not found' });
+      }
+
+      // Delete specific username from ALL refs
+      if (username && !ref) {
+        let total = 0;
+        for (const r of Object.keys(store)) {
+          const before = store[r].creds.length;
+          store[r].creds = store[r].creds.filter(c => c.u !== username);
+          total += before - store[r].creds.length;
+        }
+        return res.json({ ok: true, deleted: total });
+      }
+
+      return res.status(400).json({ error: 'Provide ref+deleteAll or ref+username or username' });
     } catch (e) {
       return res.status(500).json({ error: e.message });
     }
